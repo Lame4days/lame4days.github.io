@@ -3,21 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lame4days | Hub</title>
-    <!-- FontAwesome Icons for clean social logos -->
+    <title>lame4days</title>
+    <!-- FontAwesome for Premium Social Elements -->
     <link rel="stylesheet" href="https://cloudflare.com">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            cursor: url('https://cursors-4u.net'), auto !important; /* Custom Gaming Crosshair Cursor */
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
         }
 
         body {
-            background-color: #030303;
-            color: #fff;
+            background: #09090e;
+            color: #f1f1f7;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -26,233 +25,165 @@
             position: relative;
         }
 
-        /* High-Quality Animated Vector Background Loop */
-        .background-container {
+        /* Fluid Premium Gradient Mesh Background - Completely changes the vibe from guns.lol */
+        .gradient-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            overflow: hidden;
+            z-index: 1;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(91, 33, 182, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(29, 78, 216, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 1) 0%, rgba(5, 5, 10, 1) 100%);
         }
 
-        .background-container video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.18;
-            filter: blur(2px) contrast(110%);
-        }
-
-        /* Subtle dark vignetting shadow overlay */
-        .background-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
-            z-index: 0;
-        }
-
-        /* Premium Guns.lol Glowing Container Layout */
-        .profile-card {
+        /* Main Minimalist Workspace Frame */
+        .dashboard-container {
             position: relative;
             z-index: 10;
-            background: rgba(10, 10, 12, 0.45);
-            backdrop-filter: blur(16px) saturate(180%);
-            -webkit-backdrop-filter: blur(16px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 2.5rem 2rem;
-            border-radius: 24px;
             width: 90%;
-            max-width: 400px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8),
-                        0 0 80px rgba(114, 137, 218, 0.05);
-            animation: containerSpawn 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+            max-width: 480px;
+            background: rgba(20, 20, 30, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 28px;
+            padding: 2.2rem;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes containerSpawn {
-            from { opacity: 0; transform: scale(0.92) translateY(30px); filter: blur(4px); }
-            to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Profile Photo Setup with RGB Pulsing Circle Edge */
-        .avatar-container {
-            position: relative;
-            width: 115px;
-            height: 115px;
-            margin: 0 auto 1.5rem auto;
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            z-index: 2;
-        }
-
-        .avatar-glow {
-            position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
-            background: linear-gradient(45deg, #7289da, #ff007f, #00eeff, #7289da);
-            background-size: 400%;
-            border-radius: 50%;
-            z-index: 1;
-            filter: blur(8px);
-            opacity: 0.65;
-            animation: rgbPulse 8s linear infinite;
-        }
-
-        @keyframes rgbPulse {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            background: linear-gradient(180deg, #fff 0%, #b5b5b5 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.3rem;
-        }
-
-        /* Verification Badge Style */
-        .username-wrapper {
+        /* Profile Block Layout */
+        .profile-section {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 0.4rem;
-        }
-
-        .verify-badge {
-            color: #00eeff;
-            font-size: 1.1rem;
-            text-shadow: 0 0 10px rgba(0,238,255,0.4);
-        }
-
-        .bio {
-            color: #8a8a93;
-            font-size: 0.9rem;
-            font-weight: 500;
+            gap: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding-bottom: 1.8rem;
             margin-bottom: 1.8rem;
         }
 
-        /* Glassmorphism Social Buttons List */
-        .links-container {
+        /* Profile Image */
+        .avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px; /* Modern square-rounded finish instead of circle */
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #161622;
+        }
+
+        .meta-text {
+            text-align: left;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            font-weight: 400;
+        }
+
+        /* App Grid Layout for Channels */
+        .grid-headline {
+            text-align: left;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #64748b;
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        /* Clean Horizontal Grid Buttons */
+        .app-card {
             display: flex;
             flex-direction: column;
-            gap: 0.85rem;
-        }
-
-        .social-link {
-            display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
-            padding: 1.05rem 1.4rem;
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            border-radius: 14px;
-            color: #e4e4e7;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            padding: 1.2rem;
+            height: 110px;
+            color: #fff;
             text-decoration: none;
-            font-weight: 600;
+            transition: all 0.25s ease;
+        }
+
+        .app-card i {
+            font-size: 1.6rem;
+        }
+
+        .app-title {
             font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            font-weight: 600;
+            color: #e2e8f0;
         }
 
-        .social-link span {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .social-link i.brand-icon {
-            font-size: 1.25rem;
-            width: 24px;
-            text-align: center;
-        }
-
-        .chevron {
-            font-size: 0.75rem;
-            color: #4b4b54;
-            transition: transform 0.3s ease;
-        }
-
-        /* Hover Transitions & Dynamic Glow Filters */
-        .social-link:hover {
-            background: rgba(255, 255, 255, 0.06);
-            color: #fff;
+        /* Interactive Card States */
+        .app-card:hover {
+            background: rgba(255, 255, 255, 0.05);
             border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            transform: translateY(-3px);
         }
 
-        .social-link:hover .chevron {
-            transform: translateX(3px);
-            color: #fff;
-        }
-
-        /* Custom Accents per App Brand */
-        .youtube-btn:hover { border-color: rgba(255, 0, 0, 0.3); box-shadow: 0 0 20px rgba(255, 0, 0, 0.1); }
-        .discord-btn:hover { border-color: rgba(88, 101, 242, 0.3); box-shadow: 0 0 20px rgba(88, 101, 242, 0.1); }
-        .steam-btn:hover { border-color: rgba(0, 173, 238, 0.3); box-shadow: 0 0 20px rgba(0, 173, 238, 0.1); }
+        /* Subtle Individual Accent Branding Colors */
+        .youtube-card:hover i { color: #ef4444; }
+        .steam-card:hover i { color: #38bdf8; }
     </style>
 </head>
 <body>
 
-    <div class="background-overlay"></div>
+    <div class="gradient-bg"></div>
 
-    <!-- Background Layer (Modern abstract clean dark vector wave loop) -->
-    <div class="background-container">
-        <video autoplay loop muted playsinline>
-            <source src="https://mixkit.co" type="video/mp4">
-        </video>
-    </div>
-
-    <!-- Main Card Box -->
-    <div class="profile-card">
+    <div class="dashboard-container">
         
-        <!-- Profile Picture Container with Glow Effects -->
-        <div class="avatar-container">
-            <div class="avatar-glow"></div>
-            <!-- Pulls your live GitHub Profile Picture instantly -->
-            <img src="https://github.com" alt="lame4days Profile Picture" class="avatar">
+        <!-- Header User Details Block -->
+        <div class="profile-section">
+            <img src="https://github.com" alt="lame4days Photo" class="avatar">
+            <div class="meta-text">
+                <h1>lame4days</h1>
+                <p class="tagline">GMOD Enthusiast & Video Editor</p>
+            </div>
         </div>
-        
-        
-        <div class="username-wrapper">
-            <h1>lame4days</h1>
-            <i class="fas fa-circle-check verify-badge" title="Verified"></i>
-        </div>
-        <p class="bio">just a normal gamer • video editor</p>
 
-        <!-- Dynamic Social Interaction Links -->
-        <div class="links-container">
-            <!-- PASTE YOUR COPIED SOCIAL LINKS INSIDE THE href="" PARAMS BELOW -->
-            <a href="https://youtube.com" target="_blank" class="social-link youtube-btn">
-                <span><i class="fab fa-youtube brand-icon" style="color: #ff0000;"></i> YouTube</span>
-                <i class="fas fa-chevron-right chevron"></i>
-            </a>
+        <!-- Social Grid Structure Area -->
+        <p class="grid-headline">Connected Platforms</p>
+        <div class="apps-grid">
             
-            <a href="https://discord.com" target="_blank" class="social-link discord-btn">
-                <span><i class="fab fa-discord brand-icon" style="color: #5865F2;"></i> Discord Server</span>
-                <i class="fas fa-chevron-right chevron"></i>
+            <a href="https://youtube.com" target="_blank" class="app-card youtube-card">
+                <i class="fab fa-youtube"></i>
+                <span class="app-title">YouTube</span>
             </a>
 
-            <a href="https://steamcommunity.com" target="_blank" class="social-link steam-btn">
-                <span><i class="fab fa-steam brand-icon" style="color: #00adee;"></i> Steam Profile</span>
-                <i class="fas fa-chevron-right chevron"></i>
+            <a href="https://steamcommunity.com" target="_blank" class="app-card steam-card">
+                <i class="fab fa-steam"></i>
+                <span class="app-title">Steam</span>
             </a>
+
         </div>
+
     </div>
 
 </body>

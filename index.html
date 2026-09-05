@@ -903,6 +903,15 @@ document.getElementById("links").addEventListener("click", e => {
   if(t && t.catch) t.catch(() => {});
 });
 
+document.getElementById("pvLinks").addEventListener("click", e => {
+  const a = e.target.closest(".pv-btn");
+  if(!a) return;
+  const s = document.getElementById("sfx");
+  s.currentTime = 0;
+  const t = s.play();
+  if(t && t.catch) t.catch(() => {});
+});
+
 const net = document.getElementById("net");
 const nctx = net.getContext("2d");
 let NW = 0, NH = 0;

@@ -90,17 +90,46 @@ body{
   font-family:'Space Grotesk',sans-serif;
   font-size:.95rem;
   transition:opacity .5s ease;
+  overflow:hidden;
 }
-
+#boot::before{
+  content:"";
+  position:absolute;
+  inset:-12%;
+  background:
+    radial-gradient(60% 50% at 50% 40%,rgba(244,244,247,.06),transparent 70%),
+    linear-gradient(180deg,transparent,rgba(244,244,247,.04),transparent);
+  background-size:140% 240%;
+  animation:bootGlow 7s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes bootGlow{
+  0%,100%{transform:translateY(-14%)}
+  50%{transform:translateY(14%)}
+}
 #boot.done{opacity:0;pointer-events:none}
+#boot.done pre{
+  animation:bootFall .65s cubic-bezier(.5,0,.65,.2) forwards;
+}
+@keyframes bootFall{
+  to{transform:translateY(140%) rotate(1.5deg);opacity:0}
+}
 #boot pre{
   white-space:pre-wrap;
   text-align:left;
   line-height:1.8;
   padding:24px;
   max-width:90vw;
+  position:relative;
+  animation:bootFlicker 4s linear infinite;
 }
-
+@keyframes bootFlicker{
+  0%,91%,94%{opacity:1}
+  92%{opacity:.5}
+  93%{opacity:1}
+  96%{opacity:.7}
+  97%{opacity:1}
+}
 .boot-cursor{
   display:inline-block;
   width:9px;
@@ -110,7 +139,6 @@ body{
   animation:bootBlink .8s steps(1) infinite;
   margin-left:2px;
 }
-
 @keyframes bootBlink{50%{opacity:0}}
 
 #stars{
@@ -224,6 +252,16 @@ h1{
   font-size:1.05rem;
   margin-bottom:8px;
 }
+.tagline .glow-wf{
+  color:#4da6ff;
+  font-weight:600;
+  text-shadow:
+    0 0 6px rgba(77,166,255,.95),
+    0 0 14px rgba(77,166,255,.75),
+    0 0 26px rgba(77,166,255,.45);
+  animation:floaty 3.2s ease-in-out infinite;
+  display:inline-block;
+}
 
 .welcome{color:var(--accent-3);font-size:.9rem;margin-bottom:14px}
 
@@ -249,6 +287,45 @@ h1{
 }
 
 @keyframes pulse{50%{opacity:.4}}
+
+body.go .live-card,body.go .wx,body.go .sys{animation:fadeUp .55s cubic-bezier(.16,1,.3,1) both}
+body.go .live-card{animation-delay:.05s}
+body.go .wx{animation-delay:.12s}
+body.go .sys{animation-delay:.18s}
+.live-card,.wx,.sys{transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease}
+.live-card:hover,.wx:hover,.sys:hover{transform:translateY(-3px);border-color:rgba(255,255,255,.22);box-shadow:0 14px 36px rgba(0,0,0,.4)}
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+h1{background-size:200% auto;animation:gradShift 5s ease-in-out infinite}
+@keyframes gradShift{50%{background-position:100% center}}
+
+.avatar{animation:floaty 7s ease-in-out infinite}
+@keyframes floaty{50%{transform:translateY(-6px)}}
+
+.link svg,.link img.l-icon{transition:transform .25s}
+.link:hover svg,.link:hover img.l-icon{transform:scale(1.12)}
+
+h1{animation:gradShift 5s ease-in-out infinite,lightFlick 6s linear infinite}
+@keyframes lightFlick{
+  0%,100%{opacity:1}
+  89%{opacity:1}
+  90%{opacity:.55}
+  91%{opacity:.92}
+  94%{opacity:.68}
+  95%{opacity:1}
+}
+.card::before{animation:lightFlick 4.2s linear infinite}
+.vid-overlay .vo-play{animation:lightFlick 5s linear infinite}
+.badge .dot,.live-pill .dot.yt,.sys-pill .dot{animation:pulse 2s ease-in-out infinite,dotFlick 5.3s linear infinite}
+@keyframes dotFlick{
+  0%,100%{box-shadow:0 0 8px #e8e8ee}
+  90%{box-shadow:0 0 2px #e8e8ee}
+  91%{box-shadow:0 0 12px #e8e8ee}
+  95%{box-shadow:0 0 0 #e8e8ee}
+  96%{box-shadow:0 0 10px #e8e8ee}
+}
+
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 
 .badge .sep{width:1px;height:12px;background:var(--card-border);margin:0 2px}
 
@@ -348,6 +425,14 @@ h1{
 
 .embed-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 
+.vid-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:radial-gradient(120% 120% at 50% 30%,rgba(18,18,23,.25),rgba(8,8,11,.78));cursor:pointer;z-index:2;transition:opacity .3s;pointer-events:none}
+.vid-overlay.hide{opacity:0;pointer-events:none}
+.vid-overlay .vo-pfp{width:72px;height:72px;border-radius:50%;background:#121217 center/cover;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 8px 30px rgba(0,0,0,.55)}
+.vid-overlay .vo-play{width:46px;height:46px;border-radius:50%;background:var(--text);color:#0c0c10;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 24px rgba(0,0,0,.5);transition:transform .15s;pointer-events:auto;cursor:pointer}
+.vid-overlay:hover .vo-play{transform:scale(1.08)}
+.vid-overlay .vo-play svg{width:20px;height:20px;fill:currentColor}
+.vid-overlay .vo-cap{font-size:.72rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
 .wx{
   border:1px solid var(--card-border);
   background:rgba(255,255,255,.03);
@@ -425,8 +510,63 @@ h1{
 .pv-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .pv-btn{border:1px solid var(--card-border);background:rgba(255,255,255,.05);color:var(--text);border-radius:999px;padding:7px 14px;font-size:.76rem;text-decoration:none;transition:background .2s,border-color .2s;letter-spacing:.02em}
 .pv-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
+.pv-btn.opt{color:var(--muted)}
+.pv-btn.opt:hover{color:var(--text);background:rgba(255,255,255,.12)}
 .sys-pill.on .dot{background:#4ade80;box-shadow:0 0 8px #4ade80;animation:none}
 .sys-pill.off .dot{background:#f87171;box-shadow:0 0 8px #f87171;animation:none}
+
+.love-banner{
+  border:1px solid rgba(255,255,255,.16);
+  background:linear-gradient(135deg,rgba(52,211,153,.10),rgba(129,140,248,.10),rgba(56,189,248,.10));
+  border-radius:16px;
+  padding:14px 18px;
+  margin-bottom:20px;
+  text-align:center;
+  font-size:.84rem;
+  line-height:1.6;
+  color:#e7e7f3;
+  filter:grayscale(1);
+}
+.love-banner b{color:var(--text);font-weight:600}
+.lb-title{font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--text);animation:lightFlick 3.2s linear infinite;display:inline-block}
+
+/* --- security tools --- */
+.pw-out{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border:1px solid var(--card-border);background:rgba(8,8,11,.6);
+  border-radius:12px;padding:10px 12px;margin-bottom:12px;
+  font-family:'Space Grotesk',monospace;font-size:.92rem;color:var(--text);
+  word-break:break-all;min-height:44px;letter-spacing:.04em;
+}
+.pw-out button{flex-shrink:0}
+.pw-tags{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:12px;font-family:'Space Grotesk',sans-serif;font-size:.78rem;color:var(--muted)}
+.pw-tags label{display:inline-flex;align-items:center;gap:6px;cursor:pointer;border:1px solid var(--card-border);border-radius:999px;padding:4px 11px;transition:border-color .2s,color .2s;user-select:none}
+.pw-tags label.on{border-color:rgba(255,255,255,.4);color:var(--text)}
+.pw-tags input{display:none}
+.pw-lenrow{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;font-family:'Space Grotesk',sans-serif;font-size:.78rem;color:var(--muted);margin-bottom:10px}
+.pw-lenrow input[type=range]{accent-color:#9a9aa5;width:100%}
+.pw-lenrow .pw-lbl{white-space:nowrap}
+.pw-meter{height:8px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden;margin-bottom:4px}
+.pw-meter i{display:block;height:100%;width:0;border-radius:99px;transition:width .4s,background .4s}
+.pw-meter.s1 i{background:#f87171}
+.pw-meter.s2 i{background:#fb923c}
+.pw-meter.s3 i{background:#facc15}
+.pw-meter.s4 i{background:#a3e635}
+.pw-meter.s5 i{background:#34d399}
+.pw-bits{font-family:'Space Grotesk',sans-serif;font-size:.72rem;margin-bottom:12px;min-height:1.2em}
+.pw-bits.s1,.pw-bits.s2{color:#f87171}
+.pw-bits.s3{color:#facc15}
+.pw-bits.s4{color:#a3e635}
+.pw-bits.s5{color:#34d399}
+.pw-bits.s0{color:var(--muted)}
+.pw-check-row{display:grid;grid-template-columns:1fr auto;gap:10px;margin-bottom:10px}
+.pw-input{width:100%;background:rgba(8,8,11,.6);border:1px solid var(--card-border);color:var(--text);border-radius:10px;padding:9px 11px;font-family:'Space Grotesk',monospace;font-size:.82rem;outline:none;box-sizing:border-box;transition:border-color .2s}
+.pw-input:focus{border-color:rgba(255,255,255,.35)}
+.pw-breached{font-family:'Space Grotesk',sans-serif;font-size:.78rem;line-height:1.5;margin-bottom:10px;min-height:1.2em}
+.pw-breached .good{color:#a3e635}
+.pw-breached .bad{color:#f87171}
+.pw-sub{font-size:.68rem;color:var(--muted);line-height:1.5;margin-top:12px}
+.pw-sub b{color:#cfcfd6;font-weight:600}
 
 .footer{margin-top:26px;color:var(--muted);font-size:.8rem}
 .footer a{color:var(--muted)}
@@ -439,6 +579,7 @@ h1{
   perspective:1000px;
   pointer-events:none;
   display:none;
+  will-change:transform;
 }
 @media(min-width:1080px){.cube-wrap{display:block}}
 
@@ -469,6 +610,13 @@ h1{
   0%{transform:rotateX(-18deg) rotateY(0deg)}
   100%{transform:rotateX(-18deg) rotateY(360deg)}
 }
+
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-track{background:#08080b}
+::-webkit-scrollbar-thumb{background:#26262e;border:2px solid #08080b;border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:#3a3a44}
+::selection{background:var(--accent-2);color:#0c0c10}
+::-moz-selection{background:var(--accent-2);color:#0c0c10}
 
 @media(max-width:560px){.card{padding:40px 22px 30px}}
 </style>
@@ -524,7 +672,12 @@ h1{
       <div class="live-pill"><span class="dot yt"></span>avg discord call with the gc</div>
     </div>
     <div class="embed-box">
-      <iframe src="https://www.youtube.com/embed/hQdGKXJGnd4" title="avg discord call with the gc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <iframe id="vidEmbed" data-src="https://www.youtube.com/embed/hQdGKXJGnd4?playsinline=1&rel=0" title="avg discord call with the gc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      <div class="vid-overlay" id="vidOverlay">
+        <div class="vo-pfp" id="voPfp" style="background-image:url('https://yt3.googleusercontent.com/kHmdpMv8S25d4rYvkTMFmaPpQAeR9hNcW-oWRXgc15fMUG2NiGzzuPm_8_oFPdHzSOFXXWGECFQ=s900-c-k-c0x00ffffff-no-rj')"></div>
+        <div class="vo-play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="vo-cap">avg discord call with the gc</div>
+      </div>
     </div>
   </div>
 
@@ -558,6 +711,10 @@ h1{
     <div id="sys-rows"></div>
   </div>
   
+  <div class="love-banner">
+    <span class="lb-title">PRIVACY AIN'T PARANOIA</span>&nbsp;- so here&rsquo;s some tools: the <b>extensions</b> &amp; <b>password</b> bits are right below.
+  </div>
+
   <div class="sys">
     <div class="sys-head">
       <div class="sys-title">
@@ -576,6 +733,63 @@ h1{
     <div class="sys-row"><span class="k">timezone</span><span class="v" id="pvTz">…</span></div>
     <div class="sys-row"><span class="k">dnt</span><span class="v" id="pvDnt">…</span></div>
     <div class="pv-links" id="pvLinks"></div>
+  </div>
+
+  <div class="sys">
+    <div class="sys-head">
+      <div class="sys-title">
+        <svg viewBox="0 0 24 24"><path d="M12 1a2 2 0 0 0-2 2v2H7a2 2 0 0 0-2 2h2v2H3.4a2 2 0 0 0-2 2v8h8v-3h2v3h8a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-4V5a2 2 0 0 0-2-2h-3V3a2 2 0 0 0-2-2zM7 11h2v4H7v-4zm3 0h2v4h-2v-4z"/></svg>
+        password forge
+      </div>
+      <div class="sys-pill"><span class="dot"></span>in-browser only</div>
+    </div>
+    <div class="pw-out"><span id="pwText">················</span><button class="pv-btn" id="pwCopyBtn">copy</button></div>
+    <div class="pw-tags">
+      <label class="on"><input type="checkbox" checked id="ckSym">symbols</label>
+      <label class="on"><input type="checkbox" checked id="ckNum">numbers</label>
+      <label class="on"><input type="checkbox" checked id="ckUp">uppercase</label>
+      <label class="on"><input type="checkbox" checked id="ckLow">lowercase</label>
+    </div>
+    <div class="pw-lenrow"><span class="pw-lbl">length</span><input type="range" id="pwLen" min="12" max="64" value="20"><b class="pw-lbl" id="pwLenOut">20</b></div>
+    <div class="pw-meter s0" id="pwMeter"><i></i></div>
+    <div class="pw-bits" id="pwBitsOut"></div>
+    <div class="pw-check-row"><input class="pw-input" id="pwTestIn" type="text" placeholder="or paste any password to grade it + breach-check it…" autocomplete="off"><button class="pv-btn" id="pwCheckBtn">check</button></div>
+    <div class="pw-breached" id="pwBrea"></div>
+    <div class="pw-sub">everything here happens on your device — nothing you type or generate is sent anywhere, ever. random passwords are untypeable on purpose: <b>write it down or save it in a password manager</b>. there is no recovery and nobody, including me, can get it back for you. breach check works via <b>haveibeenpwned k-anonymity</b>, which only ever uploads the first 5 characters of your password&rsquo;s SHA-1 hash.</div>
+  </div>
+
+  <div class="sys">
+    <div class="sys-head">
+      <div class="sys-title">
+        <svg viewBox="0 0 24 24"><path d="M7 3a5 5 0 0 0-5 5v8a5 5 0 0 0 5 5h1V3H7zM9 3v18h7a5 5 0 0 0 5-5V8a5 5 0 0 0-5-5H9zm-4 8h2v2H5v-2zm13-3h2v2h-2V8z"/></svg>
+        connection check
+      </div>
+      <div class="sys-pill"><span class="dot"></span>live</div>
+    </div>
+    <div class="sys-row"><span class="k">encrypted</span><span class="v" id="ccSecure">…</span></div>
+    <div class="sys-row"><span class="k">protocol</span><span class="v" id="ccProto">…</span></div>
+    <div class="sys-row"><span class="k">cross-origin isolated</span><span class="v" id="ccIso">…</span></div>
+    <div class="sys-row"><span class="k">cookies</span><span class="v" id="ccCookies">…</span></div>
+    <div class="sys-row"><span class="k">local storage</span><span class="v" id="ccStore">…</span></div>
+    <div class="pw-sub">this only describes this page&rsquo;s connection to <b>this site</b> — not your whole network or any app you have open. no data is sent to build it; it reads what your browser already exposes.</div>
+  </div>
+
+  <div class="sys">
+    <div class="sys-head">
+      <div class="sys-title">
+        <svg viewBox="0 0 24 24"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        colophon
+      </div>
+      <div class="sys-pill"><span class="dot"></span>how this is made</div>
+    </div>
+    <div class="sys-row"><span class="k">engine</span><span class="v">hand-rolled HTML/CSS/JS · 0 frameworks · 0 JS libraries · no build step</span></div>
+    <div class="sys-row"><span class="k">fonts</span><span class="v">Space Grotesk, served by Google Fonts</span></div>
+    <div class="sys-row"><span class="k">click sfx</span><span class="v">~27 KB audio embedded directly in the page</span></div>
+    <div class="sys-row"><span class="k">live data</span><span class="v">weather · view counter · live subs · breach database — fetched at runtime, nothing stored</span></div>
+    <div class="sys-row"><span class="k">privacy tools</span><span class="v">password forge &amp; checks run 100% in your browser</span></div>
+    <div class="sys-row"><span class="k">storage</span><span class="v">2 tiny values in your browser (view fallback + self-cleaning connection probe). no cookies, no tracking</span></div>
+    <div class="sys-row"><span class="k">hosting</span><span class="v">GitHub Pages · lame4days.github.io</span></div>
+    <div class="pw-sub">made by hand at 3am, in an ongoing war with my own RAM. no frameworks were harmed, but several were roasted.</div>
   </div>
 
   <p class="footer">made with <span style="color:var(--accent-3)">♥</span> · <a href="https://github.com/Lame4days" target="_blank" rel="noopener">github</a></p>
@@ -598,19 +812,10 @@ h1{
 const SITE = {
   
   name: "lame4days",
-  tagline: "content creator &amp; chaos enjoyer",
+  tagline: "content creator &amp; <span class=\"glow-wf\">Waterfox</span> enjoyer",
   
   status: "viewing the void",
-  
-  pfp: "pfp.jpg",
-  
-  youtube: {
-    channel: "UCx3xuZPd0pGhaSRxk54U5oA",
-    key: "AIzaSyDp1b0OVebMn9Go5gfOH0jErj7Sl4r3Dwc"
-  },
-  
-  discord: "lame4days",
-  
+
   weather: {
     lat: 39.7817,
     lon: -89.6501,
@@ -623,7 +828,7 @@ const SITE = {
     { name: "GitHub", handle: "github.com/Lame4days", url: "https://github.com/Lame4days", cls: "git", svg: '<svg viewBox="0 0 24 24" fill="#e7e7f3"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>' },
     { name: "Discord", handle: "lame4days", copy: true, cls: "discord", svg: '<svg viewBox="0 0 24 24" fill="#f5f5f5"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>' }
   ],
-  
+
   // boot text, typed on page load
   boot: [
     "INITIALIZING SYSTEM...",
@@ -657,15 +862,25 @@ function fakeCount(){
 const viewsEl = document.getElementById("views");
 function tickViews(){
   try{
-    fetch("https://api.countapi.xyz/hit/lame4days-site/views")
+    fetch("https://countapi.mileshilliard.com/api/v1/hit/lame4days_site_views")
       .then(r => r.json())
-      .then(d => { viewsEl.textContent = (d.value || fakeCount()) + " views"; })
-      .catch(() => { viewsEl.textContent = fakeCount() + " views"; });
+      .then(d => { viewsEl.textContent = (Number(d.value) || fakeCount()).toLocaleString("en-US") + " views"; })
+      .catch(() => { viewsEl.textContent = fakeCount().toLocaleString("en-US") + " views"; });
   }catch(e){
-    viewsEl.textContent = fakeCount() + " views";
+    viewsEl.textContent = fakeCount().toLocaleString("en-US") + " views";
   }
 }
 tickViews();
+
+(function(){
+  const cw = document.querySelector(".cube-wrap");
+  if(!cw) return;
+  addEventListener("mousemove", e => {
+    const rx = (e.clientY / innerHeight - 0.5) * 28;
+    const ry = (e.clientX / innerWidth - 0.5) * 36;
+    cw.style.transform = "translateY(-50%) rotateX(" + (-rx).toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg)";
+  }, { passive: true });
+})();
 
 const bootEl = document.getElementById("boot");
 const bootText = document.getElementById("boot-text");
@@ -675,6 +890,7 @@ function killBoot(){
   if(bootDone) return;
   bootDone = true;
   bootEl.classList.add("done");
+  document.body.classList.add("go");
   setTimeout(() => { bootEl.style.display = "none"; }, 550);
 }
 async function typeBoot(){
@@ -755,7 +971,7 @@ function runSystemProbe(){
   sysAdd("timezone", tz, "ok");
 
   if(navigator.hardwareConcurrency) sysAdd("cores", navigator.hardwareConcurrency + " threads", "ok");
-  if(navigator.deviceMemory) sysAdd("ram", navigator.deviceMemory + " GB", "ok");
+  sysAdd("ram", navigator.deviceMemory ? navigator.deviceMemory + " GB" : "hidden (not exposed)", navigator.deviceMemory ? "ok" : "warn");
 
   const c = navigator.connection;
   if(c && c.effectiveType){
@@ -818,7 +1034,6 @@ SITE.links.forEach(l => {
       if(e.target.classList.contains("arrow")) return;
       clipCopy(l.handle);
       flashCopy(el.querySelector(".arrow"), "✓");
-      document.getElementById("sfx").play();
     });
   } else {
     el.href = l.url;
@@ -894,23 +1109,13 @@ async function pullWeather(){
 pullWeather();
 setInterval(pullWeather, 600000);
 
-document.getElementById("links").addEventListener("click", e => {
-  const a = e.target.closest(".link");
-  if(!a) return;
+function playSfx(){
   const s = document.getElementById("sfx");
   s.currentTime = 0;
   const t = s.play();
   if(t && t.catch) t.catch(() => {});
-});
-
-document.getElementById("pvLinks").addEventListener("click", e => {
-  const a = e.target.closest(".pv-btn");
-  if(!a) return;
-  const s = document.getElementById("sfx");
-  s.currentTime = 0;
-  const t = s.play();
-  if(t && t.catch) t.catch(() => {});
-});
+}
+document.addEventListener("click", playSfx);
 
 const net = document.getElementById("net");
 const nctx = net.getContext("2d");
@@ -1038,6 +1243,8 @@ netLoop();
 const stars = document.getElementById("stars");
 const sctx = stars.getContext("2d");
 let SW = 0, SH = 0;
+const WATER_H = .84;
+function waterY(){ return SH * WATER_H; }
 function resizeStars(){ SW = stars.width = innerWidth; SH = stars.height = innerHeight; }
 resizeStars();
 addEventListener("resize", resizeStars);
@@ -1046,7 +1253,7 @@ const twinkles = [];
 for(let i = 0; i < 70; i++){
   twinkles.push({
     x: Math.random() * SW,
-    y: Math.random() * SH,
+    y: Math.random() * waterY(),
     r: Math.random() * 1.2 + .3,
     ph: Math.random() * Math.PI * 2,
     sp: .02 + Math.random() * .06
@@ -1060,7 +1267,7 @@ function dropShooter(){
   const sp = 7 + Math.random() * 7;
   return {
     x: Math.random() * SW,
-    y: Math.random() * SH * .35,
+    y: Math.random() * SH * .3,
     vx: Math.cos(ang) * sp,
     vy: Math.sin(ang) * sp,
     len: 70 + Math.random() * 120,
@@ -1069,8 +1276,132 @@ function dropShooter(){
   };
 }
 
+function reflectY(y){
+  return waterY() + (waterY() - y) * ((SH - waterY()) / waterY());
+}
+function waveX(x, y){
+  const t2 = performance.now() * .003;
+  const depth = Math.max(0, y - waterY());
+  const w = Math.sin(x * .02 + t2 * 2) * 1.5 + Math.sin(x * .045 + t2 * 3.2 + 1.7) * 1.5;
+  return x + w * (.4 + depth * .06);
+}
+
+const ripples = [];
+const glints = [];
+let nextRip = performance.now() + 900;
+let nextGlt = performance.now() + 300;
+
+function spawnGlint(){
+  const wy = waterY();
+  glints.push({
+    x: Math.random() * SW,
+    y: wy + 6 + Math.random() * (SH - wy) * .4,
+    len: 7 + Math.random() * 12,
+    life: 1,
+    decay: .02 + Math.random() * .02
+  });
+}
+
+function waveLine(y, amp, speed, phase, alpha){
+  const t = performance.now();
+  sctx.strokeStyle = "rgba(255,255,255," + alpha + ")";
+  sctx.lineWidth = 1;
+  sctx.beginPath();
+  for(let x = 0; x <= SW; x += 8){
+    const yy = y + Math.sin(x * .03 + t * speed + phase) * amp;
+    if(x === 0) sctx.moveTo(x, yy);
+    else sctx.lineTo(x, yy);
+  }
+  sctx.stroke();
+}
+
+function drawWater(){
+  const wy = waterY();
+  const t = performance.now();
+  const wg = sctx.createLinearGradient(0, wy, 0, SH);
+  wg.addColorStop(0, "rgba(148,163,184,.16)");
+  wg.addColorStop(.35, "rgba(148,163,184,.05)");
+  wg.addColorStop(1, "rgba(8,8,11,0)");
+  sctx.fillStyle = wg;
+  sctx.fillRect(0, wy, SW, SH - wy);
+  const hg = sctx.createLinearGradient(0, wy, 0, wy + 40);
+  hg.addColorStop(0, "rgba(255,255,255,.2)");
+  hg.addColorStop(1, "rgba(255,255,255,0)");
+  sctx.fillStyle = hg;
+  sctx.fillRect(0, wy, SW, 40);
+  for(let k = 0; k < 6; k++){
+    const row = wy + 6 + k * ((SH - wy) / 5.5) * (.5 + Math.sin(t * .001 + k * 1.3) * .25);
+    waveLine(row, 1.4 + k * .4, .0022 + k * .0005, k * 2.1, .10 - k * .008);
+  }
+  for(let i = glints.length - 1; i >= 0; i--){
+    const g = glints[i];
+    g.x += .12;
+    g.life -= g.decay;
+    if(g.life <= 0) glints.splice(i, 1);
+  }
+  for(const g of glints){
+    sctx.strokeStyle = "rgba(255,255,255," + (g.life * .5).toFixed(2) + ")";
+    sctx.lineWidth = 1.2;
+    sctx.beginPath();
+    sctx.moveTo(g.x, g.y);
+    sctx.lineTo(g.x + g.len, g.y);
+    sctx.stroke();
+  }
+}
+
+document.addEventListener("click", e => {
+  if(ripples.length > 24) ripples.shift();
+  ripples.push({ x: e.clientX, r: 2, life: 1, sp: 3.4 });
+});
+
+function drawMeteor(s){
+  const m = Math.hypot(s.vx, s.vy);
+  const tx = s.x - (s.vx / m) * s.len;
+  const ty = s.y - (s.vy / m) * s.len;
+  const g = sctx.createLinearGradient(s.x, s.y, tx, ty);
+  g.addColorStop(0, "rgba(255,255,255," + s.life.toFixed(2) + ")");
+  g.addColorStop(1, "rgba(255,255,255,0)");
+  sctx.strokeStyle = g;
+  sctx.lineWidth = 1.6;
+  sctx.lineCap = "round";
+  sctx.beginPath();
+  sctx.moveTo(s.x, s.y);
+  sctx.lineTo(tx, ty);
+  sctx.stroke();
+  if(s.y < waterY()){
+    const hy = reflectY(s.y);
+    const hx = waveX(s.x, hy);
+    const gw = reflectY(ty);
+    const wx = waveX(tx, gw);
+    const rp = sctx.createLinearGradient(hx, hy, wx, gw);
+    rp.addColorStop(0, "rgba(255,255,255," + (s.life * .6).toFixed(2) + ")");
+    rp.addColorStop(1, "rgba(255,255,255,0)");
+    sctx.strokeStyle = rp;
+    sctx.beginPath();
+    sctx.moveTo(hx, hy);
+    sctx.lineTo(wx, gw);
+    sctx.stroke();
+  }
+}
+
 function starLoop(){
   sctx.clearRect(0, 0, SW, SH);
+  drawWater();
+  const now = performance.now();
+  if(now > nextRip){
+    ripples.push({ x: 60 + Math.random() * (SW - 120), r: 3, life: 1, sp: 2.6 + Math.random() * 2 });
+    nextRip = now + 1100 + Math.random() * 2400;
+  }
+  if(now > nextGlt){
+    spawnGlint();
+    nextGlt = now + 260 + Math.random() * 500;
+  }
+  for(let i = ripples.length - 1; i >= 0; i--){
+    const ri = ripples[i];
+    ri.r += ri.sp;
+    ri.life -= .014;
+    if(ri.life <= 0) ripples.splice(i, 1);
+  }
   for(const t of twinkles){
     t.ph += t.sp;
     const a = .2 + Math.abs(Math.sin(t.ph)) * .55;
@@ -1078,6 +1409,15 @@ function starLoop(){
     sctx.beginPath();
     sctx.arc(t.x, t.y, t.r, 0, Math.PI * 2);
     sctx.fill();
+    const ry = reflectY(t.y);
+    const rx = waveX(t.x, ry);
+    const ra = a * (.5 - (ry - waterY()) / (SH - waterY()) * .4);
+    if(ra > .015){
+      sctx.fillStyle = "rgba(255,255,255," + ra.toFixed(2) + ")";
+      sctx.beginPath();
+      sctx.arc(rx, ry, t.r * .9, 0, Math.PI * 2);
+      sctx.fill();
+    }
   }
   if(performance.now() > nextShoot){
     shooters.push(dropShooter());
@@ -1089,19 +1429,7 @@ function starLoop(){
     if(s.life <= 0){ shooters.splice(i, 1); continue; }
     s.x += s.vx;
     s.y += s.vy;
-    const m = Math.hypot(s.vx, s.vy);
-    const tx = s.x - (s.vx / m) * s.len;
-    const ty = s.y - (s.vy / m) * s.len;
-    const g = sctx.createLinearGradient(s.x, s.y, tx, ty);
-    g.addColorStop(0, "rgba(255,255,255," + s.life.toFixed(2) + ")");
-    g.addColorStop(1, "rgba(255,255,255,0)");
-    sctx.strokeStyle = g;
-    sctx.lineWidth = 1.6;
-    sctx.lineCap = "round";
-    sctx.beginPath();
-    sctx.moveTo(s.x, s.y);
-    sctx.lineTo(tx, ty);
-    sctx.stroke();
+    drawMeteor(s);
   }
   requestAnimationFrame(starLoop);
 }
@@ -1150,12 +1478,12 @@ function detectBrowser(){
   if(/Edg\//.test(ua)) return { name: "edge", leaky: true,  why: "edge phones microsoft everything you do." };
   if(/OPR\//.test(ua)) return { name: "opera", leaky: true, why: "opera got sold to a chinese ad company years back." };
   if(/Vivaldi\//.test(ua)) return { name: "vivaldi", leaky: true, why: "chromium under the hood, same leaks." };
-  if(/Brave\//.test(ua)) return { name: "brave", leaky: false, why: "shields up by default. solid." };
+  if(/Brave\//.test(ua)) return { name: "brave", leaky: false, why: "shields up by default — that's it, you're fine. only thing annoying here is brave's crypto popups, and you can turn those off." };
   if(/Firefox\//.test(ua)) return { name: "firefox", leaky: false, why: "firefox. actually yours to own." };
   if(/Chromium\//.test(ua)) return { name: "chromium", leaky: true, why: "google's base layer with extra steps." };
   if(/Chrome\//.test(ua)) return { name: "chrome", leaky: true, why: "chrome is google's tracking box." };
   if(/Safari\//.test(ua)) return { name: "safari", leaky: false, why: "safari. decent walls, apple still watches ya." };
-  return { name: "some rando browser", leaky: true, why: "when in doubt: firefox or brave." };
+  return { name: "unknown", leaky: true, why: "browser not in my database. shields up." };
 }
 
 function runPrivacyCheck(){
@@ -1170,18 +1498,25 @@ function runPrivacyCheck(){
     ext = ['<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener">uBlock Origin</a>',
            '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/privacy-badger17/" target="_blank" rel="noopener">privacy badger</a>',
            '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/sponsorblock/" target="_blank" rel="noopener">sponsorblock</a>',
-           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/clearurls/" target="_blank" rel="noopener">clearURLs (optional)</a>',
-           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/multi-account-containers/" target="_blank" rel="noopener">containers (optional)</a>'];
+           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/bitwarden-password-manager/" target="_blank" rel="noopener">bitwarden (recommended)</a>',
+           '<a class="pv-btn opt" href="https://addons.mozilla.org/firefox/addon/clearurls/" target="_blank" rel="noopener">clearURLs (optional)</a>',
+           '<a class="pv-btn opt" href="https://addons.mozilla.org/firefox/addon/multi-account-containers/" target="_blank" rel="noopener">containers (optional)</a>',
+           '<a class="pv-btn opt" href="https://addons.mozilla.org/firefox/addon/noscript/" target="_blank" rel="noopener">NoScript (optional, advanced)</a>'];
+  } else if(b.name === "brave"){
+    ext = ['<a class="pv-btn" href="https://support.brave.com/hc/en-us/articles/360046168111-How-do-I-disable-Brave-Rewards" target="_blank" rel="noopener">turn off Brave Rewards</a>',
+           '<a class="pv-btn" href="https://bitwarden.com/" target="_blank" rel="noopener">bitwarden (recommended)</a>'];
   } else if(b.leaky){
-    ext = ['<a class="pv-btn" href="https://www.brave.com/download/" target="_blank" rel="noopener">brave</a>',
+    ext = ['<a class="pv-btn" href="https://www.waterfox.net/" target="_blank" rel="noopener">waterfox</a>',
            '<a class="pv-btn" href="https://www.mozilla.org/firefox/new/" target="_blank" rel="noopener">firefox</a>',
            '<a class="pv-btn" href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm" target="_blank" rel="noopener">uBlock Origin</a>',
            '<a class="pv-btn" href="https://chromewebstore.google.com/detail/privacy-badger/pkehgijcmpdhfbdkdkodngbhhigfkjnh" target="_blank" rel="noopener">privacy badger</a>',
            '<a class="pv-btn" href="https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone" target="_blank" rel="noopener">sponsorblock</a>',
-           '<a class="pv-btn" href="https://chromewebstore.google.com/detail/clearurls/lckanjgmijmafbedhkcgpbimlccfgnfm" target="_blank" rel="noopener">clearURLs (optional)</a>'];
+           '<a class="pv-btn" href="https://chromewebstore.google.com/detail/bitwarden-password-manage/nngceckbapebfimnlniiiahkandclblb" target="_blank" rel="noopener">bitwarden (recommended)</a>',
+           '<a class="pv-btn opt" href="https://chromewebstore.google.com/detail/clearurls/lckanjgmijmafbedhkcgpbimlccfgnfm" target="_blank" rel="noopener">clearURLs (optional)</a>'];
   } else {
     ext = ['<a class="pv-btn" href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener">uBlock Origin</a>',
-           '<a class="pv-btn" href="https://privacybadger.org/" target="_blank" rel="noopener">privacy badger</a>'];
+           '<a class="pv-btn" href="https://privacybadger.org/" target="_blank" rel="noopener">privacy badger</a>',
+           '<a class="pv-btn" href="https://bitwarden.com/" target="_blank" rel="noopener">bitwarden (recommended)</a>'];
   }
   document.getElementById("pvLinks").innerHTML = ext.join("");
 }
@@ -1209,7 +1544,9 @@ function runFingerprint(){
     if(g){
       const dbg = g.getExtension("WEBGL_debug_renderer_info");
       const raw = dbg ? g.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : (g.getParameter(g.VERSION) || "");
-      fp.gl = String(raw).split(" ").slice(0, 3).join(" ");
+      const rl = String(raw).toLowerCase();
+      if(rl.indexOf("brave") > -1) fp.gl = "welcome, brace your wallet for rewards";
+      else fp.gl = String(raw).split(" ").slice(0, 3).join(" ");
     }
   }catch(e){}
   const probe = document.createElement("span");
@@ -1253,6 +1590,216 @@ function runFingerprint(){
   document.getElementById("pvTz").textContent = tz;
   document.getElementById("pvDnt").textContent = dnt;
 }
+
+document.getElementById("vidOverlay").addEventListener("click", function(){
+  document.getElementById("vidOverlay").className = "vid-overlay hide";
+  const vi = document.getElementById("vidEmbed");
+  if(!vi.src || vi.src === "about:blank") vi.src = vi.getAttribute("data-src").replace("playsinline=1", "autoplay=1&playsinline=1");
+  document.getElementById("vidOverlay").style.display = "none";
+});
+
+/* --- security tools --- */
+function u8bytes(s){
+  var out = [], u = unescape(encodeURIComponent(s)), i;
+  for(i = 0; i < u.length; i++) out[i] = u.charCodeAt(i);
+  return out;
+}
+function lrot(v, c){ return (v << c) >>> (32 - c); }
+function sha1Hex(s){
+  var m = u8bytes(s), i, n = m.length, blk = ((n + 8) >> 6) + 1, w = new Array(blk * 16);
+  for(i = 0; i < w.length; i++) w[i] = 0;
+  for(i = 0; i < n; i++) w[i >> 2] |= m[i] << (24 - (i % 4) * 8);
+  w[i >> 2] |= 0x80 << (24 - (i % 4) * 8);
+  w[blk * 16 - 1] = n * 8;
+  var h0 = 0x67452301, h1 = 0xefcdab89, h2 = 0x98badcfe, h3 = 0x10325476, h4 = 0xc3d2e1f0, x = new Array(80);
+  for(i = 0; i < blk; i++){
+    var o = i * 16, j, a = h0, b = h1, c = h2, d = h3, e = h4, f, k, t;
+    for(j = 0; j < 16; j++) x[j] = w[o + j];
+    for(j = 16; j < 80; j++) x[j] = lrot(x[j-3] ^ x[j-8] ^ x[j-14] ^ x[j-16], 1);
+    for(j = 0; j < 80; j++){
+      if(j < 20){ f = (b & c) | (~b & d); k = 0x5a827999; }
+      else if(j < 40){ f = b ^ c ^ d; k = 0x6ed9eba1; }
+      else if(j < 60){ f = (b & c) | (b & d) | (c & d); k = 0x8f1bbcdc; }
+      else { f = b ^ c ^ d; k = 0xca62c1d6; }
+      t = (lrot(a, 5) + f + e + k + x[j]) >>> 0;
+      e = d; d = c; c = lrot(b, 30); b = a; a = t;
+    }
+    h0 = (h0 + a) >>> 0; h1 = (h1 + b) >>> 0; h2 = (h2 + c) >>> 0; h3 = (h3 + d) >>> 0; h4 = (h4 + e) >>> 0;
+  }
+  return h0.toString(16).padStart(8, "0") + h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0") + h3.toString(16).padStart(8, "0") + h4.toString(16).padStart(8, "0");
+}
+var CH = { sym: "!@#$%^&*-_=+[]{};:,.<>?", num: "0123456789", up: "ABCDEFGHIJKLMNOPQRSTUVWXYZ", low: "abcdefghijklmnopqrstuvwxyz" };
+function randInt(max){
+  if(window.crypto && crypto.getRandomValues){
+    var a = new Uint32Array(1);
+    crypto.getRandomValues(a);
+    return a[0] % max;
+  }
+  return Math.floor(Math.random() * max);
+}
+function pwBits(s){
+  if(!s) return 0;
+  var pool = 0;
+  if(/[a-z]/.test(s)) pool += 26;
+  if(/[A-Z]/.test(s)) pool += 26;
+  if(/[0-9]/.test(s)) pool += 10;
+  if(/[^a-zA-Z0-9]/.test(s)) pool += 33;
+  if(!pool) return 0;
+  var uniq = 0, seen = {};
+  for(var i = 0; i < s.length; i++){ if(!seen[s[i]]){ seen[s[i]] = 1; uniq++; } }
+  var repPen = Math.max(0, s.length - uniq) * 2;
+  return Math.max(4, Math.floor(s.length * Math.log2(pool))) - repPen;
+}
+function levelOf(bits){
+  if(bits < 40) return 1;
+  if(bits < 60) return 2;
+  if(bits < 80) return 3;
+  if(bits < 100) return 4;
+  return 5;
+}
+function gradePw(pw){
+  var bits = pwBits(pw), lvl = bits ? levelOf(bits) : 0;
+  var meter = document.getElementById("pwMeter");
+  meter.className = "pw-meter s" + lvl;
+  meter.querySelector("i").style.width = Math.min(100, (bits / 120) * 100) + "%";
+  meter.title = bits + " bits";
+  var labs = ["", "very weak", "weak", "fine", "strong", "insane"];
+  var out = document.getElementById("pwBitsOut");
+  out.className = "pw-bits s" + lvl;
+  out.textContent = bits ? "~" + bits + " bits · " + labs[lvl] : "";
+}
+function genPw(){
+  var len = parseInt(document.getElementById("pwLen").value, 10) || 20;
+  var on = [];
+  ["ckSym", "ckNum", "ckUp", "ckLow"].forEach(function(id){
+    if(document.getElementById(id).checked){
+      on.push(id === "ckSym" ? CH.sym : id === "ckNum" ? CH.num : id === "ckUp" ? CH.up : CH.low);
+    }
+  });
+  if(on.length < 2) on.push(CH.num);
+  var all = on.join(""), chars = [];
+  on.forEach(function(ch){ chars.push(ch[randInt(ch.length)]); });
+  while(chars.length < len) chars.push(all[randInt(all.length)]);
+  for(var i = chars.length - 1; i > 0; i--){
+    var j = randInt(i + 1), t = chars[i];
+    chars[i] = chars[j]; chars[j] = t;
+  }
+  var pw = chars.join("");
+  document.getElementById("pwText").textContent = pw;
+  gradePw(pw);
+}
+async function breachCheck(pw){
+  try{
+    var hx = sha1Hex(pw).toUpperCase(), pre = hx.slice(0, 5), suf = hx.slice(5);
+    var res = await fetch("https://api.pwnedpasswords.com/range/" + pre, { headers: { "Accept": "text/plain" } });
+    if(!res.ok) return -1;
+    var txt = await res.text(), found = 0;
+    txt.split("\n").forEach(function(ln){
+      var c = ln.indexOf(":");
+      if(c > 0 && ln.slice(0, c) === suf) found = parseInt(ln.slice(c + 1), 10) || 0;
+    });
+    return found;
+  }catch(e){ return -1; }
+}
+["ckSym", "ckNum", "ckUp", "ckLow"].forEach(function(id){
+  document.getElementById(id).addEventListener("change", function(){
+    this.parentElement.classList.toggle("on", this.checked);
+    genPw();
+  });
+});
+document.getElementById("pwLen").addEventListener("input", function(){
+  document.getElementById("pwLenOut").textContent = this.value;
+  genPw();
+});
+document.getElementById("pwCopyBtn").addEventListener("click", function(){
+  var pw = document.getElementById("pwText").textContent;
+  if(!pw) return;
+  clipCopy(pw);
+  flashCopy(this, "copied ✓");
+});
+document.getElementById("pwTestIn").addEventListener("input", function(){
+  document.getElementById("pwBrea").innerHTML = "";
+  gradePw(this.value);
+});
+var pwChecking = false;
+document.getElementById("pwCheckBtn").addEventListener("click", async function(){
+  var v = document.getElementById("pwTestIn").value;
+  if(!v || pwChecking) return;
+  pwChecking = true;
+  var btn = this, orig = btn.textContent;
+  btn.textContent = "checking…";
+  var c = await breachCheck(v);
+  var box = document.getElementById("pwBrea");
+  if(c === -1){
+    box.innerHTML = '<span class="bad">couldn\'t reach the breach database — check your connection and try again.</span>';
+  } else if(c === 0){
+    box.innerHTML = '<span class="good">not found in any known breach. still use a unique one for this account.</span>';
+  } else {
+    box.innerHTML = '<span class="bad">found in <b>' + c.toLocaleString("en-US") + '</b> known breach' + (c === 1 ? "" : "es") + '. change it everywhere you\'ve used it.</span>';
+  }
+  btn.textContent = orig;
+  pwChecking = false;
+});
+genPw();
+
+/* --- connection check --- */
+(function(){
+  var secure = document.getElementById("ccSecure");
+  secure.textContent = window.isSecureContext ? "yes (https)" : "no (plain http)";
+  secure.className = "v " + (window.isSecureContext ? "ok" : "warn");
+  var proto = "?";
+  try{
+    var ents = performance.getEntriesByType("resource");
+    for(var i = 0; i < ents.length; i++){
+      if(ents[i].nextHopProtocol && ents[i].name.indexOf(location.host) > -1){ proto = ents[i].nextHopProtocol; break; }
+    }
+  }catch(e){}
+  if(proto === "?"){
+    try{
+      var navE = performance.getEntriesByType("navigation")[0];
+      if(navE && navE.nextHopProtocol) proto = navE.nextHopProtocol;
+    }catch(e2){}
+  }
+  document.getElementById("ccProto").textContent = (proto === "?" ? "unknown" : proto.toUpperCase());
+  document.getElementById("ccIso").textContent = window.crossOriginIsolated ? "on (COOP+COEP)" : "off";
+  var cookies = 0;
+  try{ cookies = document.cookie.split(";").filter(function(s){ return s.trim() !== ""; }).length; }catch(e){}
+  var cookEl = document.getElementById("ccCookies");
+  cookEl.textContent = cookies + (cookies === 1 ? " cookie" : " cookies");
+  if(cookies === 0) cookEl.className = "v ok";
+  var storeEl = document.getElementById("ccStore");
+  try{
+    localStorage.setItem("__cc", "1");
+    localStorage.removeItem("__cc");
+    storeEl.textContent = "available";
+    storeEl.className = "v ok";
+  }catch(e){
+    storeEl.textContent = "blocked";
+    storeEl.className = "v warn";
+  }
+})();
+
+(function(){
+  var P = ["lame4days is online", "content creator & chaos enjoyer", "welcome to my website", "go touch grass"];
+  var pi = 0, ci = 0, del = false;
+  (function loop(){
+    var w = P[pi], d = 90 + Math.random() * 80;
+    if(del){
+      ci--;
+      d = 45;
+      if(ci < 0){ ci = 0; del = false; pi = (pi + 1) % P.length; d = 300; }
+    } else {
+      ci++;
+      if(ci >= w.length){
+        ci = w.length;
+        del = true;
+        d = 1800;
+      }
+    }
+    document.title = "lame4days" + (ci ? " · " + w.slice(0, ci) : "") + (del ? "" : "_");
+    setTimeout(loop, d);
+  })();
+})();
 </script>
 </body>
 </html>

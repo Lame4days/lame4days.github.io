@@ -7,6 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#08080b">
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://lame4days.github.io/">
+<meta property="og:title" content="lame4days">
+<meta property="og:description" content="content creator & chaos enjoyer">
+<meta property="og:image" content="https://yt3.googleusercontent.com/kHmdpMv8S25d4rYvkTMFmaPpQAeR9hNcW-oWRXgc15fMUG2NiGzzuPm_8_oFPdHzSOFXXWGECFQ=s900-c-k-c0x00ffffff-no-rj">
+<meta property="og:site_name" content="lame4days">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="https://yt3.googleusercontent.com/kHmdpMv8S25d4rYvkTMFmaPpQAeR9hNcW-oWRXgc15fMUG2NiGzzuPm_8_oFPdHzSOFXXWGECFQ=s900-c-k-c0x00ffffff-no-rj">
+<link rel="apple-touch-icon" href="https://yt3.googleusercontent.com/kHmdpMv8S25d4rYvkTMFmaPpQAeR9hNcW-oWRXgc15fMUG2NiGzzuPm_8_oFPdHzSOFXXWGECFQ=s900-c-k-c0x00ffffff-no-rj">
 <style>
 
 :root{
@@ -326,6 +336,18 @@ h1{
   height:80px;
 }
 
+.embed-box{
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%;
+  border:1px solid var(--card-border);
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(0,0,0,.25);
+}
+
+.embed-box iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+
 .wx{
   border:1px solid var(--card-border);
   background:rgba(255,255,255,.03);
@@ -334,6 +356,8 @@ h1{
   margin-bottom:20px;
   text-align:left;
 }
+
+.wx-cap{font-size:.68rem;color:var(--muted);letter-spacing:.04em;margin-bottom:6px}
 
 .wx-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .wx-where{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
@@ -398,30 +422,6 @@ h1{
 .sys-eye:hover{border-color:rgba(255,255,255,.35);color:var(--text)}
 .sys-eye svg{width:14px;height:14px;fill:currentColor}
 
-.gb-list{display:flex;flex-direction:column;gap:10px;max-height:250px;overflow-y:auto;margin-bottom:12px}
-.gb-item{border:1px solid var(--card-border);border-radius:10px;padding:9px 12px;background:rgba(255,255,255,.02)}
-.gb-item .gb-when{float:right;color:var(--muted);font-size:.66rem;font-weight:400;text-transform:uppercase;letter-spacing:.08em}
-.gb-item .gb-who{font-size:.74rem;font-weight:600;color:var(--accent-2);letter-spacing:.02em}
-.gb-item .gb-msg{font-size:.84rem;color:#d5d5e2;line-height:1.5;margin-top:3px;word-break:break-word}
-.gb-empty{color:var(--muted);font-size:.8rem;padding:6px 2px}
-.gb-form{display:flex;flex-direction:column;gap:8px}
-.gb-row{display:flex;gap:8px}
-.gb-form input{
-  flex:1;min-width:0;background:rgba(255,255,255,.05);border:1px solid var(--card-border);
-  border-radius:10px;color:var(--text);padding:9px 12px;font-family:'Space Grotesk',sans-serif;
-  font-size:.8rem;outline:none;transition:border-color .2s;
-}
-.gb-form input::placeholder{color:var(--accent-3)}
-.gb-form input:focus{border-color:rgba(255,255,255,.35)}
-.gb-btn{
-  background:rgba(255,255,255,.08);border:1px solid var(--card-border);color:var(--text);
-  border-radius:10px;padding:9px 14px;font-family:'Space Grotesk',sans-serif;font-size:.8rem;
-  cursor:pointer;transition:background .2s,border-color .2s;white-space:nowrap;
-}
-.gb-btn:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.3)}
-.gb-btn:active{transform:translateY(1px)}
-.gb-note{font-size:.68rem;color:var(--accent-3);margin-top:8px;text-align:center}
-.gb-note.err{color:#ff7a7a}
 .pv-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .pv-btn{border:1px solid var(--card-border);background:rgba(255,255,255,.05);color:var(--text);border-radius:999px;padding:7px 14px;font-size:.76rem;text-decoration:none;transition:background .2s,border-color .2s;letter-spacing:.02em}
 .pv-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.35)}
@@ -515,7 +515,21 @@ h1{
     </div>
   </div>
 
+  <div class="live-card">
+    <div class="live-head">
+      <div class="live-title">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.45 12 20.45 12 20.45s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12z"/></svg>
+        latest video
+      </div>
+      <div class="live-pill"><span class="dot yt"></span>avg discord call with the gc</div>
+    </div>
+    <div class="embed-box">
+      <iframe src="https://www.youtube.com/embed/hQdGKXJGnd4" title="avg discord call with the gc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+  </div>
+
   <div class="wx">
+    <div class="wx-cap">this is my weather/time stuff btw</div>
     <div class="wx-head">
       <span class="wx-where" id="wxWhere"></span>
       <span class="wx-clock"><span id="wxTime">--:--:--</span><span class="wx-date" id="wxDate"></span></span>
@@ -554,28 +568,14 @@ h1{
     </div>
     <div class="sys-row"><span class="k">browser</span><span class="v" id="pvBrowser">…</span></div>
     <div class="sys-row"><span class="k">verdict</span><span class="v" id="pvVerdict">…</span></div>
+    <div class="sys-row"><span class="k">fingerprint</span><span class="v" id="pvFp">…</span></div>
+    <div class="sys-row"><span class="k">canvas</span><span class="v" id="pvCanvas">…</span></div>
+    <div class="sys-row"><span class="k">webgl</span><span class="v" id="pvGl">…</span></div>
+    <div class="sys-row"><span class="k">fonts</span><span class="v" id="pvFonts">…</span></div>
+    <div class="sys-row"><span class="k">screen</span><span class="v" id="pvScreen">…</span></div>
+    <div class="sys-row"><span class="k">timezone</span><span class="v" id="pvTz">…</span></div>
+    <div class="sys-row"><span class="k">dnt</span><span class="v" id="pvDnt">…</span></div>
     <div class="pv-links" id="pvLinks"></div>
-  </div>
-
-  <div class="sys">
-    <div class="sys-head">
-      <div class="sys-title">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-9l-4 4v-4H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg>
-        guestbook
-      </div>
-      <div class="sys-pill"><span class="dot"></span><span id="gbPill">loading</span></div>
-    </div>
-    <div id="gb-list"><div class="gb-empty">loading signs…</div></div>
-    <div class="gb-form">
-      <div class="gb-row">
-        <input id="gbName" maxlength="20" placeholder="name (optional)" autocomplete="off">
-      </div>
-      <div class="gb-row">
-        <input id="gbMsg" maxlength="140" placeholder="say something" autocomplete="off">
-        <button class="gb-btn" id="gbSend">sign</button>
-      </div>
-    </div>
-    <div class="gb-note" id="gbNote"></div>
   </div>
 
   <p class="footer">made with <span style="color:var(--accent-3)">♥</span> · <a href="https://github.com/Lame4days" target="_blank" rel="noopener">github</a></p>
@@ -617,11 +617,6 @@ const SITE = {
     name: "Central Illinois"
   },
 
-  // drop a discord webhook url here to log signs forever
-  guestbook: {
-    discord: ""
-  },
-  
   links: [
     { name: "YouTube", handle: "@lame4days", url: "https://www.youtube.com/@lame4days", cls: "yt", svg: '<svg viewBox="0 0 24 24" fill="#f5f5f5"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.45 12 20.45 12 20.45s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.55 15.57V8.43L15.82 12z"/></svg>' },
     { name: "Steam", handle: "steamcommunity.com/id/lame4days", url: "https://steamcommunity.com/id/lame4days", cls: "steam", svg: '<svg viewBox="0 0 24 24" fill="#ffffff"><path d="M11.979 0C5.678 0 .512 4.86.023 11.037l6.432 2.658c.545-.371 1.202-.59 1.911-.59.064 0 .125.004.188.006l2.861-4.142V8.91c0-2.495 2.028-4.524 4.524-4.524 2.494 0 4.524 2.031 4.524 4.527s-2.03 4.525-4.524 4.525h-.105l-4.076 2.911c0 .052.004.105.004.159 0 1.875-1.515 3.396-3.39 3.396-1.634 0-3.015-1.173-3.33-2.727L.437 15.27C1.862 20.307 6.486 24 11.979 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12zm-6.76 13.6c.123.021.247.034.373.034.587 0 1.123-.235 1.527-.615l-1.455-.601c-.63-.262-.927-.98-.665-1.609.262-.63.979-.927 1.61-.663l1.455.601c-.019-.558.167-1.127.556-1.562.653-.723 1.807-.793 2.53-.14.656.593.699 1.657.347 2.483l-.792 1.253c.652.006 1.272.233 1.762.682.722.593.954 1.48.562 2.243l-5.38 3.137c-.564.329-1.291.136-1.62-.426-.153-.264-.182-.557-.106-.826-.93-.765-1.594-1.74-2.051-3.362zm6.246-7.106c-1.777 0-3.216 1.438-3.216 3.215s1.438 3.215 3.216 3.215 3.215-1.438 3.215-3.215-1.439-3.215-3.215-3.215zm0 1.175c1.13 0 2.039.909 2.039 2.04s-.909 2.04-2.039 2.04-2.039-.909-2.039-2.04.909-2.04 2.039-2.04z"/></svg>' },
@@ -698,24 +693,6 @@ typeBoot();
 bootEl.addEventListener("click", killBoot);
 addEventListener("keydown", killBoot);
 
-function detectBrowser(){
-  const ua = navigator.userAgent;
-  const ud = navigator.userAgentData;
-  if(ud && ud.brands){
-    for(let i = 0; i < ud.brands.length; i++){
-      const b = ud.brands[i];
-      if(/Not[A-Z]|Brand/.test(b.brand)) continue;
-      return { n: b.brand, v: b.version };
-    }
-  }
-  const m = ua.match(/(Firefox|SamsungBrowser|Edg|OPR|Chrome|Safari)\/([\d.]+)/);
-  if(m){
-    const names = { OPR: "Opera", Edg: "Edge" };
-    return { n: names[m[1]] || m[1], v: m[2].split(".")[0] };
-  }
-  return { n: "unknown", v: "" };
-}
-
 function detectOS(){
   const ud = navigator.userAgentData;
   if(ud && ud.platform) return ud.platform;
@@ -764,12 +741,10 @@ function sysAdd(k, v, cls, secret){
 }
 
 function runSystemProbe(){
-  const browser = detectBrowser();
   const os = detectOS();
   let dark = "unknown";
   try{ dark = matchMedia("(prefers-color-scheme: dark)").matches ? "yes" : "no"; }catch(e){}
 
-  sysAdd("browser", (browser.n + " " + browser.v).trim(), "ok");
   sysAdd("os", os, "ok");
   sysAdd("dark mode", dark, "ok");
   sysAdd("screen", innerWidth + "x" + innerHeight + " · dpr " + (devicePixelRatio || 1), "ok");
@@ -1147,103 +1122,6 @@ document.addEventListener("mouseout", e => {
   requestAnimationFrame(chaseRing);
 })();
 
-const gbKey = "l4d_guestbook_v1";
-let gb = [];
-try{ gb = JSON.parse(localStorage.getItem(gbKey) || "[]"); }catch(e){ gb = []; }
-
-function gbWhen(ts){
-  if(!ts) return "";
-  const d = new Date(ts);
-  const mon = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"][d.getMonth()];
-  return mon + " " + d.getDate();
-}
-
-function gbDraw(pill){
-  const box = document.getElementById("gb-list");
-  const note = document.getElementById("gbNote");
-  if(!gb.length){
-    box.innerHTML = '<div class="gb-empty">no signs yet. be the first.</div>';
-  } else {
-    box.innerHTML = gb.slice(0, 30).map(function(it){
-      return '<div class="gb-item"><span class="gb-when">' + gbWhen(it.t) + '</span><div class="gb-who">' + esc(it.n || "anon") + '</div><div class="gb-msg">' + esc(it.m) + '</div></div>';
-    }).join("");
-  }
-  document.getElementById("gbPill").textContent = pill || (gb.length + (gb.length === 1 ? " sign" : " signs"));
-  note.textContent = SITE.guestbook.discord ? "signs also land in my discord" : "signs save on this device";
-}
-
-// block slurs, swears are fine
-const gbBan = [
-  "nigger","niggers","nigga","niggas","niggah","niggaz","niggar","nigglet","niglet","nig","nigs",
-  "niqqa","niqqas","niqqer","niqqaz","nikka","nikkas","niga","nigas",
-  "negro","negroes","negroid","negress","wigger","wigga","wiggers","jigaboo","jigga","darkie","darky",
-  "fag","fags","faggot","faggots","fagot","fagots","faggit","fagz","fudgepacker",
-  "dyke","dykes","tranny","trannies","shemale","she male",
-  "spic","spics","spick","spik","wetback","wetbacks","beaner","beaners",
-  "chink","chinks","chingchong","gook","gooks","gooker",
-  "paki","pakis","pakie","polack","polaks","polak","yid","yids","heeb","hebe","hebes","hymie","mick","micks","wop","wops","dago","dagos",
-  "kike","kikes","kik","kraut","krauts",
-  "retard","retards","retarded","spaz","spazz","moron","morons","imbecile","imbeciles","mongoloid","mongoloids","cretin","cretins","cripple","cripples",
-  "cracker","cracka","crackas","crackaz","honkey","honky","honkies","white trash","whitetrash",
-  "gypsy","gypsies","gipsy","gyp","gypped","gyped","gipped",
-  "sandnigger","sandnigga","raghead","towelhead","zipperhead","porchmonkey","porch monkey",
-  "redskin","redskins","squaw","massa","sambo","sambos","coon","coons"
-];
-const gbMap = {
-  "0":"o","1":"i","3":"e","4":"a","5":"s","6":"g","7":"t","8":"b",
-  "@":"a","$":"s","!":"i","|":"i",
-  "а":"a","е":"e","о":"o","р":"p","с":"c","х":"x","і":"i","г":"g","д":"d"
-};
-function hasSlur(t){
-  let low = String(t || "").toLowerCase();
-  let out = "";
-  for(let i = 0; i < low.length; i++){
-    const c = low[i];
-    out += gbMap[c] !== undefined ? gbMap[c] : c;
-  }
-  out = out.replace(/[^a-z0-9 ]/g, " ").replace(/\s+/g, " ").trim();
-  for(const w of gbBan){
-    const esc = w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-    if(new RegExp("\\b" + esc.replace(/ /g, "\\s+") + "\\b", "g").test(out)) return true;
-  }
-  return false;
-}
-
-function gbSign(){
-  const name = document.getElementById("gbName").value.trim();
-  const msg = document.getElementById("gbMsg").value.trim();
-  if(!msg) return;
-  if(hasSlur(name) || hasSlur(msg)){
-    const note = document.getElementById("gbNote");
-    note.classList.add("err");
-    note.textContent = "easy there. no slurs.";
-    setTimeout(function(){
-      note.textContent = SITE.guestbook.discord ? "signs also land in my discord" : "signs save on this device";
-      note.classList.remove("err");
-    }, 2600);
-    return;
-  }
-  document.getElementById("sfx").play();
-  gb.unshift({ n: name || "anon", m: msg, t: Date.now() });
-  gb = gb.slice(0, 100);
-  try{ localStorage.setItem(gbKey, JSON.stringify(gb)); }catch(e){}
-  document.getElementById("gbMsg").value = "";
-  document.getElementById("gbName").value = "";
-  gbDraw(SITE.guestbook.discord ? "live" : "local");
-  const hook = SITE.guestbook.discord;
-  if(hook){
-    fetch(hook, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain" },
-      body: JSON.stringify({ content: "**" + (name || "anon") + "** signed the guestbook: " + msg })
-    }).catch(function(){});
-  }
-}
-
-document.getElementById("gbSend").addEventListener("click", gbSign);
-document.getElementById("gbMsg").addEventListener("keydown", function(e){ if(e.key === "Enter") gbSign(); });
-gbDraw(SITE.guestbook.discord ? "live" : "local");
-
 function tickClock(){
   try{
     const t = new Date();
@@ -1281,12 +1159,17 @@ function runPrivacyCheck(){
   let ext = [];
   if(b.name === "firefox"){
     ext = ['<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/ublock-origin/" target="_blank" rel="noopener">uBlock Origin</a>',
-           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/privacy-badger17/" target="_blank" rel="noopener">privacy badger</a>'];
+           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/privacy-badger17/" target="_blank" rel="noopener">privacy badger</a>',
+           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/sponsorblock/" target="_blank" rel="noopener">sponsorblock</a>',
+           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/clearurls/" target="_blank" rel="noopener">clearURLs (optional)</a>',
+           '<a class="pv-btn" href="https://addons.mozilla.org/firefox/addon/multi-account-containers/" target="_blank" rel="noopener">containers (optional)</a>'];
   } else if(b.leaky){
     ext = ['<a class="pv-btn" href="https://www.brave.com/download/" target="_blank" rel="noopener">brave</a>',
            '<a class="pv-btn" href="https://www.mozilla.org/firefox/new/" target="_blank" rel="noopener">firefox</a>',
            '<a class="pv-btn" href="https://chromewebstore.google.com/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm" target="_blank" rel="noopener">uBlock Origin</a>',
-           '<a class="pv-btn" href="https://chromewebstore.google.com/detail/privacy-badger/pkehgijcmpdhfbdkdkodngbhhigfkjnh" target="_blank" rel="noopener">privacy badger</a>'];
+           '<a class="pv-btn" href="https://chromewebstore.google.com/detail/privacy-badger/pkehgijcmpdhfbdkdkodngbhhigfkjnh" target="_blank" rel="noopener">privacy badger</a>',
+           '<a class="pv-btn" href="https://chromewebstore.google.com/detail/sponsorblock-for-youtube/mnjggcdmjocbbbhaepdhchncahnbgone" target="_blank" rel="noopener">sponsorblock</a>',
+           '<a class="pv-btn" href="https://chromewebstore.google.com/detail/clearurls/lckanjgmijmafbedhkcgpbimlccfgnfm" target="_blank" rel="noopener">clearURLs (optional)</a>'];
   } else {
     ext = ['<a class="pv-btn" href="https://github.com/gorhill/uBlock" target="_blank" rel="noopener">uBlock Origin</a>',
            '<a class="pv-btn" href="https://privacybadger.org/" target="_blank" rel="noopener">privacy badger</a>'];
@@ -1294,6 +1177,73 @@ function runPrivacyCheck(){
   document.getElementById("pvLinks").innerHTML = ext.join("");
 }
 runPrivacyCheck();
+runFingerprint();
+
+function runFingerprint(){
+  const fp = { canvas: "", gl: "n/a", fonts: [] };
+  try{
+    const cv = document.createElement("canvas");
+    cv.width = 300; cv.height = 60;
+    const ctx = cv.getContext("2d");
+    ctx.textBaseline = "alphabetic";
+    ctx.fillText("lame4days.vibe® " + Math.PI + " ÅΩ", 10, 32);
+    const d = ctx.getImageData(0, 0, 300, 60).data;
+    let h = 5381;
+    for(let i = 0; i < d.length; i += 4){
+      h = ((h << 5) + h + d[i] * 7 + d[i+1] * 3 + d[i+2]) % 2147483647;
+    }
+    fp.canvas = "hash " + h;
+  }catch(e){ fp.canvas = "blocked"; }
+  try{
+    const c = document.createElement("canvas");
+    const g = c.getContext("webgl") || c.getContext("experimental-webgl");
+    if(g){
+      const dbg = g.getExtension("WEBGL_debug_renderer_info");
+      const raw = dbg ? g.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : (g.getParameter(g.VERSION) || "");
+      fp.gl = String(raw).split(" ").slice(0, 3).join(" ");
+    }
+  }catch(e){}
+  const probe = document.createElement("span");
+  probe.textContent = "mmmmmmwmmmmmwwlll";
+  probe.style.cssText = "position:fixed;left:-9999px;visibility:hidden;font-size:64px;font-family:monospace";
+  document.body.appendChild(probe);
+  const base = probe.offsetWidth;
+  const list = ["arial","times new roman","courier new","georgia","comic sans ms","trebuchet ms","verdana","impact"];
+  for(let i = 0; i < list.length; i++){
+    probe.style.fontFamily = '"' + list[i] + '", monospace';
+    if(probe.offsetWidth !== base) fp.fonts.push(list[i].split(" ")[0]);
+  }
+  document.body.removeChild(probe);
+  fp.fonts.sort();
+  let tz = "utc";
+  try{
+    const ro = Intl.DateTimeFormat().resolvedOptions();
+    tz = ro.timeZone || "utc";
+    const off = -new Date().getTimezoneOffset() / 60;
+    if(off) tz += " (GMT" + off + ")";
+  }catch(e){}
+  let dnt = "unsaid";
+  if(navigator.doNotTrack === "1") dnt = "yes";
+  else if(navigator.doNotTrack === "0") dnt = "no";
+  const signals = [
+    fp.canvas.indexOf("hash") === 0,
+    fp.gl !== "n/a",
+    fp.fonts.length > 0,
+    !!(screen.width && screen.height),
+    tz !== "utc",
+    !!navigator.hardwareConcurrency,
+    !!navigator.language,
+    !!(navigator.platform || "").length
+  ];
+  const count = signals.filter(function(b){ return b; }).length;
+  document.getElementById("pvFp").textContent = count + " signals";
+  document.getElementById("pvCanvas").textContent = fp.canvas;
+  document.getElementById("pvGl").textContent = fp.gl;
+  document.getElementById("pvFonts").textContent = fp.fonts.length ? fp.fonts.join(", ") : "none detectable";
+  document.getElementById("pvScreen").textContent = innerWidth + "x" + innerHeight + " · " + (screen.colorDepth || "?") + "bit color";
+  document.getElementById("pvTz").textContent = tz;
+  document.getElementById("pvDnt").textContent = dnt;
+}
 </script>
 </body>
 </html>
